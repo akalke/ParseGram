@@ -9,9 +9,12 @@
 #import "UserProfileViewController.h"
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
+#import "Photo.h"
 
 @interface UserProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *photoCountLabel;
+@property NSArray *userPhotos;
+@property NSString *username;
 
 @end
 
@@ -19,8 +22,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = [NSString stringWithFormat:@"%@", @"asher lev"];
-    self.photoCountLabel.text = [NSString stringWithFormat:@"Photo Count: %@", @143];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.username = [userDefaults stringForKey:@"CURRENT_USER"];
+
+    self.title = [NSString stringWithFormat:@"%@", self.username];
+    self.photoCountLabel.text = [NSString stringWithFormat:@"Photo Count: %@", @(self.userPhotos.count)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -40,7 +46,7 @@
 #pragma mark - TableView Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return self.userPhotos.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -51,6 +57,21 @@
     cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", @"10/31/2014"];
     
     return cell;
+}
+
+#pragma mark - Helper Methods
+
+- (void)refreshView {
+    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName]];
+    [queryPhotos orderByDescending:@"createdAt"];
+    [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            self.userPhotos = objects;
+//            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - IBActions
