@@ -8,10 +8,13 @@
 
 #import "OtherUserProfileViewController.h"
 #import "CustomTableViewCell.h"
+#import <Parse/Parse.h>
+#import "Photo.h"
 
 @interface OtherUserProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *photoCountLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property NSArray *userPhotos;
 
 @end
 
@@ -26,7 +29,7 @@
 #pragma mark - TableView Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.userPhotos.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
