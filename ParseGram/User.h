@@ -7,15 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
-@interface User : NSObject
-@property NSString *userID;
+@interface User : PFObject <PFSubclassing>
 @property NSString *username;
 @property NSString *password;
-@property NSArray *uploadedPhotos;
-@property NSArray *likedPhotos;
-@property NSArray *following;
-@property NSArray *followedBy;
+@property NSString *emailAddress;
+//@property NSArray *uploadedPhotos;
+//@property NSArray *likedPhotos;
+//@property NSArray *following;
+//@property NSArray *followedBy;
 
 //create methods for parse to access user info
 

@@ -37,6 +37,8 @@
 		6996B4101A00025600ECDDB3 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6996B40F1A00025600ECDDB3 /* CameraViewController.m */; };
 		6C3B1C9119FF155E0009246C /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3B1C8E19FF155E0009246C /* Photo.m */; };
 		6C3B1C9219FF155E0009246C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3B1C9019FF155E0009246C /* User.m */; };
+		6CB6C5DD1A015BE400FFC9E1 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB6C5DC1A015BE400FFC9E1 /* Comments.m */; };
+		6CB6C5E01A015C2000FFC9E1 /* CreateUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB6C5DF1A015C2000FFC9E1 /* CreateUserViewController.m */; };
 		6CB892F01A0009DB00EE7D53 /* FollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB892EF1A0009DB00EE7D53 /* FollowingViewController.m */; };
 		6CB892FB1A00382B00EE7D53 /* UploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB892FA1A00382B00EE7D53 /* UploadPhotoViewController.m */; };
 /* End PBXBuildFile section */
@@ -99,6 +101,10 @@
 		6C3B1C8E19FF155E0009246C /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		6C3B1C8F19FF155E0009246C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		6C3B1C9019FF155E0009246C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6CB6C5DB1A015BE400FFC9E1 /* Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comments.h; sourceTree = "<group>"; };
+		6CB6C5DC1A015BE400FFC9E1 /* Comments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comments.m; sourceTree = "<group>"; };
+		6CB6C5DE1A015C2000FFC9E1 /* CreateUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateUserViewController.h; sourceTree = "<group>"; };
+		6CB6C5DF1A015C2000FFC9E1 /* CreateUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateUserViewController.m; sourceTree = "<group>"; };
 		6CB892EE1A0009DB00EE7D53 /* FollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowingViewController.h; sourceTree = "<group>"; };
 		6CB892EF1A0009DB00EE7D53 /* FollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowingViewController.m; sourceTree = "<group>"; };
 		6CB892F91A00382B00EE7D53 /* UploadPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPhotoViewController.h; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 		6953450919FEF5BE009C25FF /* ParseGram */ = {
 			isa = PBXGroup;
 			children = (
+				6C3B1C8C19FF13850009246C /* Data Model */,
 				6CB892F11A00107B00EE7D53 /* View Controllers */,
 				6953451419FEF5BE009C25FF /* Main.storyboard */,
 				6953450E19FEF5BE009C25FF /* AppDelegate.h */,
@@ -166,7 +173,6 @@
 				694A846319FF2CF300B233AA /* CustomCollectionViewCell.m */,
 				6953451719FEF5BE009C25FF /* Images.xcassets */,
 				6953451919FEF5BE009C25FF /* LaunchScreen.xib */,
-				6C3B1C8C19FF13850009246C /* Data Model */,
 				6953450A19FEF5BE009C25FF /* Supporting Files */,
 			);
 			path = ParseGram;
@@ -213,6 +219,8 @@
 		6C3B1C8C19FF13850009246C /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
+				6CB6C5DB1A015BE400FFC9E1 /* Comments.h */,
+				6CB6C5DC1A015BE400FFC9E1 /* Comments.m */,
 				6C3B1C8D19FF155E0009246C /* Photo.h */,
 				6C3B1C8E19FF155E0009246C /* Photo.m */,
 				6C3B1C8F19FF155E0009246C /* User.h */,
@@ -238,6 +246,8 @@
 			children = (
 				694A845619FF204700B233AA /* LoginViewController.h */,
 				694A845719FF204700B233AA /* LoginViewController.m */,
+				6CB6C5DE1A015C2000FFC9E1 /* CreateUserViewController.h */,
+				6CB6C5DF1A015C2000FFC9E1 /* CreateUserViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -391,8 +401,10 @@
 				6996B4101A00025600ECDDB3 /* CameraViewController.m in Sources */,
 				6CB892F01A0009DB00EE7D53 /* FollowingViewController.m in Sources */,
 				694A845B19FF2A9D00B233AA /* FollowersViewController.m in Sources */,
+				6CB6C5E01A015C2000FFC9E1 /* CreateUserViewController.m in Sources */,
 				6953451319FEF5BE009C25FF /* PictureRiverViewController.m in Sources */,
 				6CB892FB1A00382B00EE7D53 /* UploadPhotoViewController.m in Sources */,
+				6CB6C5DD1A015BE400FFC9E1 /* Comments.m in Sources */,
 				694A846719FF2F0700B233AA /* OtherUserProfileViewController.m in Sources */,
 				694A845519FF1E6200B233AA /* SearchPhotosViewController.m in Sources */,
 				694A846419FF2CF300B233AA /* CustomCollectionViewCell.m in Sources */,

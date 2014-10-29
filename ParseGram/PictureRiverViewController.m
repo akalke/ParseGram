@@ -12,6 +12,7 @@
 
 @interface PictureRiverViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property NSString *username;
 
 @end
 
@@ -20,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Picture River";
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.username = [userDefaults stringForKey:@"CURRENT_USER"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -46,7 +49,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.userLabel.text = [NSString stringWithFormat:@"User: %@", @"asher lev"];
+    cell.userLabel.text = [NSString stringWithFormat:@"User: %@", self.username];
     cell.photo.image = [UIImage imageNamed:@"stig"];
     cell.captionLabel.text = @"'Hello World'";
     cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];

@@ -10,4 +10,21 @@
 
 @implementation Photo
 
+@dynamic caption;
+@dynamic imageURL;
+@dynamic imageTags;
+@dynamic isliked;
+@dynamic comments;
+@dynamic timeStamp;
+@dynamic uploadedBy;
+@dynamic likedBy;
+
++(NSString *)parseClassName{
+    return @"Photo";
+}
+
++(void)load{
+    [self registerSubclass];
+}
+
 @end
