@@ -57,8 +57,17 @@
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.userLabel.text = [NSString stringWithFormat:@"User: %@", photo.uploadedBy];
     PFFile *image = [photo objectForKey:@"image"];
-    cell.photo.;
-    cell.captionLabel.text = @"'Hello World'";
+    [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            UIImage *image = [UIImage imageWithData:data];
+            cell.photo.image = image;
+        }
+    }];
+    
+    
+    cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
     cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
     cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", @"10/31/2014"];
     
