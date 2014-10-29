@@ -22,8 +22,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = [NSString stringWithFormat:@"%@", @"the stig"];
-    self.photoCountLabel.text = [NSString stringWithFormat:@"Photo Count: %@", @12];
+    self.title = [NSString stringWithFormat:@"%@", self.user];
+    
+    [self refreshView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self refreshView];
 }
 
 #pragma mark - TableView Methods
@@ -33,13 +40,44 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Photo *photo = [self.userPhotos objectAtIndex:indexPath.row];
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.photo.image = [UIImage imageNamed:@"stig"];
-    cell.captionLabel.text = @"'Hello World'";
+    
+    PFFile *image = [photo objectForKey:@"image"];
+    [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            UIImage *image = [UIImage imageWithData:data];
+            cell.photo.image = image;
+        }
+    }];
+    
+    cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
     cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
-    cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", @"10/31/2014"];
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"MM-dd-yyyy"];
+    NSString *date = [format stringForObjectValue:photo.createdAt];
+    cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", date];
     
     return cell;
+}
+#pragma mark - Helper Methods
+
+- (void)refreshView {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uploadedBy = %@", self.user];
+    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName] predicate:predicate];
+    [queryPhotos orderByDescending:@"createdAt"];
+    [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            self.userPhotos = objects;
+            self.photoCountLabel.text = [NSString stringWithFormat:@"Photo Count: %@", @(self.userPhotos.count)];
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 @end
