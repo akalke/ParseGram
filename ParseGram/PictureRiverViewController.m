@@ -69,9 +69,11 @@
     
     cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
     cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
+    
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"dd-MM-yyyy"];
-    cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", photo.createdAt];
+    [format setDateFormat:@"MM-dd-yyyy"];
+    NSString *date = [format stringForObjectValue:photo.createdAt];
+    cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", date];
     
     return cell;
 }
@@ -82,7 +84,6 @@
     PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName]];
     [queryPhotos orderByDescending:@"createdAt"];
     [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
