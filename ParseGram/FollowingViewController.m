@@ -9,6 +9,7 @@
 #import "FollowingViewController.h"
 
 @interface FollowingViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 

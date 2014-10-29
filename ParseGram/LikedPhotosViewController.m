@@ -10,6 +10,7 @@
 #import "CustomCollectionViewCell.h"
 
 @interface LikedPhotosViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 

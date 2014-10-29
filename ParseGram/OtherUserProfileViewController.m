@@ -11,6 +11,7 @@
 
 @interface OtherUserProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *photoCountLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 

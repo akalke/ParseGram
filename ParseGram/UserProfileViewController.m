@@ -13,6 +13,7 @@
 
 @interface UserProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *photoCountLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSArray *userPhotos;
 @property NSString *username;
 

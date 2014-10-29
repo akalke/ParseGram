@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lL2-dg-ghw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lL2-dg-ghw">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -311,6 +311,7 @@
                     </view>
                     <connections>
                         <outlet property="photoCountLabel" destination="8IW-Kq-7v4" id="5Dx-7g-heb"/>
+                        <outlet property="tableView" destination="H6n-Lz-GvU" id="eHv-A3-22U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uCg-cP-Hjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -424,6 +425,9 @@
                             <constraint firstItem="Lxu-lE-AZW" firstAttribute="top" secondItem="83f-5b-Hfp" secondAttribute="bottom" constant="8" id="zrh-F2-sts"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="w7u-Je-gnW" id="hIN-7D-AGF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QMV-um-zYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -769,6 +773,9 @@
                             <constraint firstItem="38w-B9-VRY" firstAttribute="leading" secondItem="8xg-A2-z3e" secondAttribute="leading" id="zTU-yQ-yJu"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="38w-B9-VRY" id="At4-bs-aRG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E6M-Dv-pEd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -828,6 +835,9 @@
                             <constraint firstAttribute="trailing" secondItem="ocM-Mu-Efo" secondAttribute="trailing" id="vhr-bV-mQh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="ocM-Mu-Efo" id="SWv-ad-Z0A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3W-sl-7An" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1000,6 +1010,7 @@
                     </view>
                     <connections>
                         <outlet property="photoCountLabel" destination="bBP-iV-QaZ" id="1da-7C-KcP"/>
+                        <outlet property="tableView" destination="hjU-3X-Mc8" id="WbP-rR-Z5R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6SJ-af-F8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1044,6 +1055,9 @@
                             <constraint firstItem="q6h-XW-quj" firstAttribute="leading" secondItem="zMr-cV-V4a" secondAttribute="leading" id="nAz-Km-6d9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="q6h-XW-quj" id="Ku6-F9-cBS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raM-y1-s4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

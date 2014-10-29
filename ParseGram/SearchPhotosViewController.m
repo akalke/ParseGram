@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 
 @interface SearchPhotosViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
