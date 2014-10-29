@@ -93,6 +93,15 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Photo *selectedPhoto = [self.photos objectAtIndex:indexPath.row];
+    if ([self.username isEqual:selectedPhoto.uploadedBy]) {
+        [self performSegueWithIdentifier:@"UserProfileSegue" sender:self];
+    } else {
+        [self performSegueWithIdentifier:@"OtherUserProfileSegue" sender:self];
+    }
+}
+
 #pragma mark - Helper Methods
 
 - (void)refreshView {
