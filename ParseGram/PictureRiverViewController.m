@@ -10,6 +10,7 @@
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
+#import "OtherUserProfileViewController.h"
 
 @interface PictureRiverViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -38,7 +39,8 @@
     if ([[segue identifier] isEqual:@"UserProfileSegue"]) {
         
     } else if ([[segue identifier] isEqual:@"OtherUserProfileSegue"]) {
-        
+        OtherUserProfileViewController *otherUserProfileVC = segue.destinationViewController;
+        otherUserProfileVC.user = [self.photos objectAtIndex:self.tableView.indexPathForSelectedRow.row];
     } else if ([[segue identifier] isEqual:@"SearchSegue"]) {
         
     } else if ([[segue identifier] isEqual:@"CameraSegue"]) {

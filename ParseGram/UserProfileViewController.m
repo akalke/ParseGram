@@ -79,7 +79,6 @@
 #pragma mark - Helper Methods
 
 - (void)refreshView {
-//    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName]];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uploadedBy = %@", self.username];
     PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName] predicate:predicate];
     [queryPhotos orderByDescending:@"createdAt"];
