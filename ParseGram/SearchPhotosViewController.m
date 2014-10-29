@@ -10,13 +10,16 @@
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
+#import "User.h"
 
 @interface SearchPhotosViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property NSArray *searchArray;
 @property BOOL searchedUsers;
+@property NSString *user;
 @property BOOL searchedPoundSigns;
+@property NSString *poundSign;
 
 @end
 
@@ -34,44 +37,64 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.searchedPoundSigns == YES) {
-        NSLog(@"Pound signs");
-    } else if (self.searchedUsers == YES) {
+    if (self.searchedUsers == YES) {
         NSLog(@"Users");
+    } else if (self.searchedPoundSigns == YES) {
+        NSLog(@"Pound Signs");
     }
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
-    Photo *photo = [self.searchArray objectAtIndex:indexPath.row];
-    PFFile *image = [photo objectForKey:@"image"];
-    [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-        } else {
-            UIImage *image = [UIImage imageWithData:data];
-            cell.photo.image = image;
-        }
-    }];
-    cell.userLabel.text = [NSString stringWithFormat:@"%@", photo.uploadedBy];
-    cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
-
+    //    Photo *photo = [self.searchArray objectAtIndex:indexPath.row];
+    //    PFFile *image = [photo objectForKey:@"image"];
+    //    [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+    //        if (error) {
+    //            NSLog(@"Error: %@", error);
+    //        } else {
+    //            UIImage *image = [UIImage imageWithData:data];
+    //            cell.photo.image = image;
+    //        }
+    //    }];
+    //    cell.userLabel.text = [NSString stringWithFormat:@"%@", photo.uploadedBy];
+    //    cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
+    
     return cell;
 }
 
 #pragma mark - Helper Methods
 
 - (void)refreshView {
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uploadedBy = %@", self.username];
-//    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName] predicate:predicate];
-    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName]];
-    [queryPhotos orderByDescending:@"createdAt"];
-    [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-        } else {
-            self.searchArray = objects;
-            [self.tableView reloadData];
-        }
-    }];
+    if (self.searchedUsers == YES) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"username = %@", self.user];
+        PFQuery *queryPhotos = [PFQuery queryWithClassName:[User parseClassName] predicate:predicate];
+        [queryPhotos orderByDescending:@"createdAt"];
+        [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (error) {
+                NSLog(@"Error: %@", error);
+            } else {
+                self.searchArray = objects;
+                [self.tableView reloadData];
+            }
+            [self resetBOOLS];
+        }];
+    } else if (self.searchedPoundSigns == YES) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imageTags = %@", self.poundSign];
+        PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName] predicate:predicate];
+        [queryPhotos orderByDescending:@"createdAt"];
+        [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (error) {
+                NSLog(@"Error: %@", error);
+            } else {
+                self.searchArray = objects;
+                [self.tableView reloadData];
+            }
+            [self resetBOOLS];
+        }];
+    }
+}
+
+- (void)resetBOOLS {
+    self.searchedUsers = NO;
+    self.searchedPoundSigns = NO;
 }
 
 #pragma mark - IBActions
@@ -80,11 +103,13 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Search By" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *searchUsers = [UIAlertAction actionWithTitle:@"Users" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.searchedUsers = YES;
+        self.user = self.searchTextField.text;
         [self refreshView];
         return;
     }];
     UIAlertAction *searchPoundSigns = [UIAlertAction actionWithTitle:@"Pound Signs" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        self.searchedPoundSigns = NO;
+        self.searchedPoundSigns = YES;
+        self.poundSign = self.searchTextField.text;
         [self refreshView];
         return;
     }];
