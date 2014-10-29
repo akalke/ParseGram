@@ -27,11 +27,12 @@
     self.username = [userDefaults stringForKey:@"CURRENT_USER"];
 
     self.title = [NSString stringWithFormat:@"%@", self.username];
-    self.photoCountLabel.text = [NSString stringWithFormat:@"Photo Count: %@", @(self.userPhotos.count)];
+    [self refreshView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self refreshView];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -51,11 +52,26 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Photo *photo = [self.userPhotos objectAtIndex:indexPath.row];
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.photo.image = [UIImage imageNamed:@"stig"];
-    cell.captionLabel.text = @"'Hello World'";
+    
+    PFFile *image = [photo objectForKey:@"image"];
+    [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            UIImage *image = [UIImage imageWithData:data];
+            cell.photo.image = image;
+        }
+    }];
+    
+    cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
     cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
-    cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", @"10/31/2014"];
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"MM-dd-yyyy"];
+    NSString *date = [format stringForObjectValue:photo.createdAt];
+    cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", date];
     
     return cell;
 }
@@ -63,14 +79,17 @@
 #pragma mark - Helper Methods
 
 - (void)refreshView {
-    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName]];
+//    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uploadedBy = %@", self.username];
+    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName] predicate:predicate];
     [queryPhotos orderByDescending:@"createdAt"];
     [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
             self.userPhotos = objects;
-//            [self.tableView reloadData];
+            self.photoCountLabel.text = [NSString stringWithFormat:@"Photo Count: %@", @(self.userPhotos.count)];
+            [self.tableView reloadData];
         }
     }];
 }
