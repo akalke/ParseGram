@@ -9,10 +9,12 @@
 #import "PictureRiverViewController.h"
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
+#import "Photo.h"
 
 @interface PictureRiverViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSString *username;
+@property NSArray *photos;
 
 @end
 
@@ -44,7 +46,7 @@
 #pragma mark - TableView Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return self.photos.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -60,7 +62,7 @@
 
 #pragma mark - IBActions
 
-- (IBAction)unwindUploadViewController:(UIStoryboardSegue *)segue {
+- (IBAction)unwindToPictureRiver:(UIStoryboardSegue *)segue {
     
 }
 
