@@ -49,17 +49,17 @@
     }
 }
 
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    [super shouldPerformSegueWithIdentifier:@"OtherUserProfileSegue" sender:sender];
-    Photo *selectedPhoto = [self.photos objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-    
-    if ([self.username isEqual:selectedPhoto.uploadedBy]) {
-        [self performSegueWithIdentifier:@"UserProfileSegue" sender:self];
-        return NO;
-    } else {
-        return YES;
-    }
-}
+//- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+//    [super shouldPerformSegueWithIdentifier:@"OtherUserProfileSegue" sender:sender];
+//    Photo *selectedPhoto = [self.photos objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+//    
+//    if ([self.username isEqual:selectedPhoto.uploadedBy]) {
+//        [self performSegueWithIdentifier:@"UserProfileSegue" sender:self];
+//        return NO;
+//    } else {
+//        return YES;
+//    }
+//}
 
 #pragma mark - TableView Methods
 

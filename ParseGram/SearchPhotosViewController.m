@@ -9,9 +9,11 @@
 #import "SearchPhotosViewController.h"
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
+#import "Photo.h"
 
 @interface SearchPhotosViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property NSArray *photosArray;
 
 @end
 
@@ -25,7 +27,7 @@
 #pragma mark - TableView Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 12;
+    return self.photosArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
