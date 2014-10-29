@@ -37,25 +37,26 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.searchedUsers == YES) {
-        NSLog(@"Users");
-    } else if (self.searchedPoundSigns == YES) {
-        NSLog(@"Pound Signs");
-    }
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    //    Photo *photo = [self.searchArray objectAtIndex:indexPath.row];
-    //    PFFile *image = [photo objectForKey:@"image"];
-    //    [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-    //        if (error) {
-    //            NSLog(@"Error: %@", error);
-    //        } else {
-    //            UIImage *image = [UIImage imageWithData:data];
-    //            cell.photo.image = image;
-    //        }
-    //    }];
-    //    cell.userLabel.text = [NSString stringWithFormat:@"%@", photo.uploadedBy];
-    //    cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
+    if (self.searchedUsers == YES) {
+        User *user = [self.searchArray objectAtIndex:indexPath.row];
+        cell.userLabel.text = user.username;
+        cell.captionLabel.text = @"";
+        cell.photo.image = [UIImage imageNamed:@"stig"];
+    } else if (self.searchedPoundSigns == YES) {
+        Photo *photo = [self.searchArray objectAtIndex:indexPath.row];
+        PFFile *image = [photo objectForKey:@"image"];
+        [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (error) {
+                NSLog(@"Error: %@", error);
+            } else {
+                UIImage *image = [UIImage imageWithData:data];
+                cell.photo.image = image;
+            }
+        }];
+        cell.userLabel.text = [NSString stringWithFormat:@"%@", photo.uploadedBy];
+        cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
+    }
     
     return cell;
 }
@@ -74,7 +75,6 @@
                 self.searchArray = objects;
                 [self.tableView reloadData];
             }
-            [self resetBOOLS];
         }];
     } else if (self.searchedPoundSigns == YES) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imageTags = %@", self.poundSign];
@@ -87,14 +87,8 @@
                 self.searchArray = objects;
                 [self.tableView reloadData];
             }
-            [self resetBOOLS];
         }];
     }
-}
-
-- (void)resetBOOLS {
-    self.searchedUsers = NO;
-    self.searchedPoundSigns = NO;
 }
 
 #pragma mark - IBActions
@@ -103,12 +97,14 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Search By" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *searchUsers = [UIAlertAction actionWithTitle:@"Users" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.searchedUsers = YES;
+        self.searchedPoundSigns = NO;
         self.user = self.searchTextField.text;
         [self refreshView];
         return;
     }];
     UIAlertAction *searchPoundSigns = [UIAlertAction actionWithTitle:@"Pound Signs" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.searchedPoundSigns = YES;
+        self.searchedUsers = NO;
         self.poundSign = self.searchTextField.text;
         [self refreshView];
         return;
