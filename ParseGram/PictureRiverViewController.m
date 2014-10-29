@@ -25,10 +25,13 @@
     self.title = @"Picture River";
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     self.username = [userDefaults stringForKey:@"CURRENT_USER"];
+    
+    [self refreshView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self refreshView];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -50,14 +53,30 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Photo *photo = [self.photos objectAtIndex:indexPath.row];
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.userLabel.text = [NSString stringWithFormat:@"User: %@", self.username];
-    cell.photo.image = [UIImage imageNamed:@"stig"];
+    cell.userLabel.text = [NSString stringWithFormat:@"User: %@", photo.uploadedBy];
+    PFFile *image = [photo objectForKey:@"image"];
+    cell.photo.;
     cell.captionLabel.text = @"'Hello World'";
     cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
     cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", @"10/31/2014"];
     
     return cell;
+}
+
+#pragma mark - Helper Methods
+
+- (void)refreshView {
+    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName]];
+    [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            self.photos = objects;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - IBActions
