@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"ParseGram";
-
+    self.invalidLoginTextField.text = @"";
 }
 
 - (IBAction)loginOnPress:(id)sender {
