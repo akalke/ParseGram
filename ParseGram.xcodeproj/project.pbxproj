@@ -39,6 +39,7 @@
 		6C3B1C9219FF155E0009246C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3B1C9019FF155E0009246C /* User.m */; };
 		6CB6C5DD1A015BE400FFC9E1 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB6C5DC1A015BE400FFC9E1 /* Comments.m */; };
 		6CB6C5E01A015C2000FFC9E1 /* CreateUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB6C5DF1A015C2000FFC9E1 /* CreateUserViewController.m */; };
+		6CB6C5E31A01D1A300FFC9E1 /* Likes.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB6C5E21A01D1A300FFC9E1 /* Likes.m */; };
 		6CB892F01A0009DB00EE7D53 /* FollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB892EF1A0009DB00EE7D53 /* FollowingViewController.m */; };
 		6CB892FB1A00382B00EE7D53 /* UploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB892FA1A00382B00EE7D53 /* UploadPhotoViewController.m */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,8 @@
 		6CB6C5DC1A015BE400FFC9E1 /* Comments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comments.m; sourceTree = "<group>"; };
 		6CB6C5DE1A015C2000FFC9E1 /* CreateUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateUserViewController.h; sourceTree = "<group>"; };
 		6CB6C5DF1A015C2000FFC9E1 /* CreateUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateUserViewController.m; sourceTree = "<group>"; };
+		6CB6C5E11A01D1A300FFC9E1 /* Likes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Likes.h; sourceTree = "<group>"; };
+		6CB6C5E21A01D1A300FFC9E1 /* Likes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Likes.m; sourceTree = "<group>"; };
 		6CB892EE1A0009DB00EE7D53 /* FollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowingViewController.h; sourceTree = "<group>"; };
 		6CB892EF1A0009DB00EE7D53 /* FollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowingViewController.m; sourceTree = "<group>"; };
 		6CB892F91A00382B00EE7D53 /* UploadPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPhotoViewController.h; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 			children = (
 				6CB6C5DB1A015BE400FFC9E1 /* Comments.h */,
 				6CB6C5DC1A015BE400FFC9E1 /* Comments.m */,
+				6CB6C5E11A01D1A300FFC9E1 /* Likes.h */,
+				6CB6C5E21A01D1A300FFC9E1 /* Likes.m */,
 				6C3B1C8D19FF155E0009246C /* Photo.h */,
 				6C3B1C8E19FF155E0009246C /* Photo.m */,
 				6C3B1C8F19FF155E0009246C /* User.h */,
@@ -408,6 +413,7 @@
 				694A846719FF2F0700B233AA /* OtherUserProfileViewController.m in Sources */,
 				694A845519FF1E6200B233AA /* SearchPhotosViewController.m in Sources */,
 				694A846419FF2CF300B233AA /* CustomCollectionViewCell.m in Sources */,
+				6CB6C5E31A01D1A300FFC9E1 /* Likes.m in Sources */,
 				694A846119FF2B1000B233AA /* LikedPhotosViewController.m in Sources */,
 				6953451019FEF5BE009C25FF /* AppDelegate.m in Sources */,
 				6C3B1C9219FF155E0009246C /* User.m in Sources */,

@@ -13,10 +13,6 @@
 @dynamic username;
 @dynamic password;
 @dynamic emailAddress;
-//@dynamic uploadedPhotos;
-//@dynamic likedPhotos;
-//@dynamic following;
-//@dynamic followedBy;
 
 +(NSString *)parseClassName{
     return @"User";

@@ -7,21 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "User.h"
 #import <Parse/Parse.h>
 
 @interface Photo : PFObject <PFSubclassing>
 
-@property NSString *photoID;
 @property NSString *caption;
-@property NSURL *imageURL;
 @property NSString *imageTags;
-@property BOOL isliked;
-@property NSArray *comments;
 @property NSDate *timeStamp;
 @property NSString *uploadedBy;
-@property NSArray *likedBy;
 
-//create methods for parse to access photo info
+-(void)createPhotoObject: (NSString *)photoCaption :(NSString *)photoTags :(User *)uploadByUser;
 
 @end

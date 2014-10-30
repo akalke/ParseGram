@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
-@interface Comments : NSObject
+@class Photo;
+
+@interface Comments : PFObject <PFSubclassing>
+@property NSString *photoID;
+@property NSString *userID;
+@property NSString *comment;
+@property NSString *commentDate;
+
+-(void)createComment: (NSString *)addedComment :(User *)commentingUser :(Photo *)photo;
+-(NSArray *)grabAllCommentsForUser: (User *)commentingUser;
+-(NSArray *)grabAllCommentsForPhoto: (Photo *)photo;
 
 @end

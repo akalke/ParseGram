@@ -13,11 +13,7 @@
 @property NSString *username;
 @property NSString *password;
 @property NSString *emailAddress;
-//@property NSArray *uploadedPhotos;
-//@property NSArray *likedPhotos;
-//@property NSArray *following;
-//@property NSArray *followedBy;
+@property NSString *photoID;
 
-//create methods for parse to access user info
 
 @end
