@@ -15,5 +15,6 @@
 @property NSString *emailAddress;
 @property NSString *photoID;
 
+-(NSString *)getUserID: (NSString *)username;
 
 @end

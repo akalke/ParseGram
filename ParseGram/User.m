@@ -8,6 +8,10 @@
 
 #import "User.h"
 
+@interface User ()
+@property NSString *userID;
+@end
+
 @implementation User
 
 @dynamic username;
@@ -20,6 +24,20 @@
 
 +(void)load{
     [self registerSubclass];
+}
+
+-(NSString *)getUserID: (NSString *)username{
+    PFQuery *userQuery = [PFQuery queryWithClassName:[User parseClassName]];
+    [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(error) {
+            NSLog(@"%@", error);
+            self.userID = @"";
+        }
+        else{
+            self.userID = [objects firstObject];
+        }
+    }];
+    return self.userID;
 }
 
 @end
