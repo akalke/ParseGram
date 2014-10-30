@@ -205,7 +205,7 @@
         <!--Other User Profile View Controller-->
         <scene sceneID="dQ5-l7-tsY">
             <objects>
-                <viewController id="Tg5-wM-UDc" customClass="OtherUserProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OtherUserProfileVC" id="Tg5-wM-UDc" customClass="OtherUserProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ioF-uc-CA4"/>
                         <viewControllerLayoutGuide type="bottom" id="pvn-7p-mgj"/>

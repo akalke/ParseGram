@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import "Photo.h"
 #import "User.h"
+#import "OtherUserProfileViewController.h"
 
 @interface SearchPhotosViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -59,6 +60,19 @@
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    OtherUserProfileViewController *otherUserProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OtherUserProfileVC"];
+    if (self.searchedUsers == YES) {
+        User *user = [self.searchArray objectAtIndex:indexPath.row];
+        otherUserProfileVC.user = user.username;
+        [self.navigationController pushViewController:otherUserProfileVC animated:YES];
+    } else if (self.searchedPoundSigns == YES) {
+        Photo *photo = [self.searchArray objectAtIndex:indexPath.row];
+        otherUserProfileVC.user = photo.uploadedBy;
+        [self.navigationController pushViewController:otherUserProfileVC animated:YES];
+    }
 }
 
 #pragma mark - Helper Methods
