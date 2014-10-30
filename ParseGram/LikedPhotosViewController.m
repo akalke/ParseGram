@@ -10,10 +10,12 @@
 #import "CustomCollectionViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
+#import "Likes.h"
 
 @interface LikedPhotosViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property NSArray *likedPhotos;
+@property NSString *userID;
 
 @end
 
@@ -22,43 +24,60 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = [NSString stringWithFormat:@"%@'s Liked Photos", self.user];
-    // Needs refresh method
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    // Needs refresh method
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.userID = [userDefaults stringForKey:@"CURRENT_USER_ID"];
+    [self refreshView];
 }
 
 #pragma mark - CollectionView Methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
-//    return self.likePhotos.count;
+    return self.likedPhotos.count;
 }
 
-// Needs to be populated by liked photos based on *user (public property)
-// Already set from UserProfile prepare4Segue
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    // Photo object to pull data from
-    Photo *photo = [self.likedPhotos objectAtIndex:indexPath.row];
+    Likes *like = [self.likedPhotos objectAtIndex:indexPath.row];
     CustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    // Method below to use photo pointer above for photos
-//    PFFile *image = [photo objectForKey:@"image"];
-//    [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-//        if (error) {
-//            NSLog(@"Error: %@", error);
-//        } else {
-//            UIImage *image = [UIImage imageWithData:data];
-//            cell.photo.image = image;
-//        }
-//    }];
-    
-    cell.photo.image = [UIImage imageNamed:@"stig"];
-    // Only have image property for the collectionview
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objectId = %@", like.photoID];
+    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName] predicate:predicate];
+    [queryPhotos orderByDescending:@"createdAt"];
+    [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            NSLog(@"%@", objects);
+            Photo *photo = [objects firstObject];
+            PFFile *image = [photo objectForKey:@"image"];
+            [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (error) {
+                    NSLog(@"Error: %@", error);
+                } else {
+                    UIImage *image = [UIImage imageWithData:data];
+                    cell.photo.image = image;
+                }
+            }];
+        }
+    }];
     
     return cell;
+}
+
+#pragma mark - Helper Methods
+
+- (void)refreshView {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userID = %@", self.userID];
+    PFQuery *queryPhotos = [PFQuery queryWithClassName:[Likes parseClassName] predicate:predicate];
+    [queryPhotos orderByDescending:@"createdAt"];
+    [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            self.likedPhotos = objects;
+            [self.collectionView reloadData];
+        }
+    }];
 }
 
 @end

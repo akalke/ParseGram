@@ -102,7 +102,7 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Are you sure?" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *logout = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setValue:@"False" forKey:@"AUTHENTICATED_SESSION"];
+        [userDefaults setValue:@"FALSE" forKey:@"AUTHENTICATED_SESSION"];
         [userDefaults setValue:@"" forKey:@"CURRENT_USER"];
         [userDefaults setValue:@"" forKey:@"CURRENT_USER_ID"];
         [userDefaults synchronize];

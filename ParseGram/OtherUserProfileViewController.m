@@ -68,7 +68,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Like this Photo?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *addLike = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *userID = [userDefaults stringForKey:@"CURRENT_USER_ID"];
         
+        Photo *selectedPhoto = [self.userPhotos objectAtIndex:indexPath.row];
+        NSString *photoID = selectedPhoto.objectId;
+        
+        Likes *like = [Likes objectWithClassName:[Likes parseClassName]];
+        [like logPhotoLike:userID :photoID];
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         return;
