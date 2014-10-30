@@ -104,6 +104,7 @@
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setValue:@"False" forKey:@"AUTHENTICATED_SESSION"];
         [userDefaults setValue:@"" forKey:@"CURRENT_USER"];
+        [userDefaults setValue:@"" forKey:@"CURRENT_USER_ID"];
         [userDefaults synchronize];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
