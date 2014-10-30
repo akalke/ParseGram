@@ -36,7 +36,7 @@
     Photo *selectedPhoto = [self.photos objectAtIndex:self.tableView.indexPathForSelectedRow.row];
     if ([[segue identifier] isEqual:@"OtherUserProfileSegue"]) {
         OtherUserProfileViewController *otherUserProfileVC = segue.destinationViewController;
-        otherUserProfileVC.user = selectedPhoto.uploadedBy;
+        otherUserProfileVC.username = selectedPhoto.uploadedBy;
     }
 }
 

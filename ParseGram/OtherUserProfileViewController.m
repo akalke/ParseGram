@@ -10,11 +10,13 @@
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
+#import "User.h"
 
 @interface OtherUserProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *photoCountLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSArray *userPhotos;
+@property User *userObj;
 
 @end
 
@@ -22,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = [NSString stringWithFormat:@"%@", self.user];
+    self.title = [NSString stringWithFormat:@"%@", self.username];
     
     [self refreshView];
 }
@@ -66,12 +68,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Like this Photo?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *addLike = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.userObj getUserID:self.username];
+        NSLog(@"%@", self.userObj);
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        return;
+    }];
+    
+    [alert addAction:addLike];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Helper Methods
 
 - (void)refreshView {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uploadedBy = %@", self.user];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uploadedBy = %@", self.username];
     PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName] predicate:predicate];
     [queryPhotos orderByDescending:@"createdAt"];
     [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

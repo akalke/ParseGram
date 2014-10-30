@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface OtherUserProfileViewController : UIViewController
-@property NSString *user;
+@property NSString *username;
 
 @end

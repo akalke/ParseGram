@@ -66,11 +66,11 @@
     OtherUserProfileViewController *otherUserProfileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OtherUserProfileVC"];
     if (self.searchedUsers == YES) {
         User *user = [self.searchArray objectAtIndex:indexPath.row];
-        otherUserProfileVC.user = user.username;
+        otherUserProfileVC.username = user.username;
         [self.navigationController pushViewController:otherUserProfileVC animated:YES];
     } else if (self.searchedPoundSigns == YES) {
         Photo *photo = [self.searchArray objectAtIndex:indexPath.row];
-        otherUserProfileVC.user = photo.uploadedBy;
+        otherUserProfileVC.username = photo.uploadedBy;
         [self.navigationController pushViewController:otherUserProfileVC animated:YES];
     }
 }
