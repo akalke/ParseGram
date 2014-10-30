@@ -18,9 +18,9 @@
 @property NSString *userID;
 @property NSString *photoID;
 
--(void)logPhotoLike: (User *)likedByUser :(Photo *)photo;
--(NSArray *)grabAllLikesForUser: (User *)likingUser;
--(NSArray *)grabAllLikesForPhoto: (Photo *)photo;
+-(void)logPhotoLike: (NSString *)likedByUserID :(NSString *)photoID;
+-(NSArray *)grabAllLikesForUser: (NSString *)likingUserID;
+-(NSArray *)grabAllLikesForPhoto: (NSString *)photoID;
 
 
 @end

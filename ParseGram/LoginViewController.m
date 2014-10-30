@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *invalidLoginTextField;
 @property BOOL validLogin;
+@property User *person;
 
 @end
 
@@ -39,9 +40,11 @@
             //TODO: REFACTOR IN LOGIN OBJECT
             for(User *user in objects){
                 if([user.username isEqualToString:self.usernameTextField.text] && [user.password isEqualToString:self.passwordTextField.text]){
+                    NSLog(@"%@",[user getUserID:user.username]);
                     NSLog(@"USERNAME FOUND");
                     self.validLogin = YES;
                     [self setupUserDefaults:user.username];
+
                     [self shouldPerformSegueWithIdentifier:@"PhotoStreamSegue" sender:self];
                     break;
                 }
@@ -89,5 +92,6 @@
         return NO;
     }
 }
+
 
 @end

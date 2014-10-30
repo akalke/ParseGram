@@ -27,14 +27,16 @@
 }
 
 -(NSString *)getUserID: (NSString *)username{
-    PFQuery *userQuery = [PFQuery queryWithClassName:[User parseClassName]];
+    NSPredicate *filterForUsername = [NSPredicate predicateWithFormat:@"username = %@", username];
+    PFQuery *userQuery = [PFQuery queryWithClassName:[User parseClassName] predicate: filterForUsername];
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
             NSLog(@"%@", error);
             self.userID = @"";
         }
         else{
-            self.userID = [objects firstObject];
+            self.userID = [[objects firstObject] objectId];
+            NSLog(@"%@", self.userID);
         }
     }];
     return self.userID;
