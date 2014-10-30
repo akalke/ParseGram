@@ -55,7 +55,16 @@
     }];
     
     cell.captionLabel.text = photo.caption;
-    cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"photoID = %@", photo.objectId];
+    PFQuery *queryLikes = [PFQuery queryWithClassName:[Likes parseClassName] predicate:predicate];
+    [queryLikes findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %lu", (unsigned long)objects.count];
+        }
+    }];
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MM-dd-yyyy"];
@@ -76,6 +85,7 @@
         
         Likes *like = [Likes objectWithClassName:[Likes parseClassName]];
         [like logPhotoLike:userID :photoID];
+        [self.tableView reloadData];
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         return;

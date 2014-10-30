@@ -12,7 +12,6 @@
 #import <Parse/Parse.h>
 #import "Photo.h"
 #import "User.h"
-#import "Likes.h"
 
 @interface SearchPhotosViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

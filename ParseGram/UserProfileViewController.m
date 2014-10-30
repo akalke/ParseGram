@@ -12,6 +12,7 @@
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
+#import "Likes.h"
 
 @interface UserProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *photoCountLabel;
@@ -69,7 +70,16 @@
     }];
     
     cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
-    cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"photoID = %@", photo.objectId];
+    PFQuery *queryLikes = [PFQuery queryWithClassName:[Likes parseClassName] predicate:predicate];
+    [queryLikes findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %lu", (unsigned long)objects.count];
+        }
+    }];
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MM-dd-yyyy"];
