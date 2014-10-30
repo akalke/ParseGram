@@ -53,13 +53,13 @@
         }
     }];
     
-    cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
+    cell.captionLabel.text = photo.caption;
     cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MM-dd-yyyy"];
     NSString *date = [format stringForObjectValue:photo.createdAt];
-    cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", date];
+    cell.timeStampLabel.text = date;
     
     return cell;
 }

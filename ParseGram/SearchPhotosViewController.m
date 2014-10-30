@@ -41,7 +41,7 @@
     if (self.searchedUsers == YES) {
         User *user = [self.searchArray objectAtIndex:indexPath.row];
         cell.userLabel.text = user.username;
-        cell.captionLabel.text = @"";
+        cell.captionLabel.hidden = YES;
         cell.photo.image = [UIImage imageNamed:@"stig"];
     } else if (self.searchedPoundSigns == YES) {
         Photo *photo = [self.searchArray objectAtIndex:indexPath.row];
@@ -54,8 +54,8 @@
                 cell.photo.image = image;
             }
         }];
-        cell.userLabel.text = [NSString stringWithFormat:@"%@", photo.uploadedBy];
-        cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
+        cell.userLabel.text = photo.uploadedBy;
+        cell.captionLabel.text = photo.caption;
     }
     
     return cell;
