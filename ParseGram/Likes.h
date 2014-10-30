@@ -20,7 +20,7 @@
 
 -(void)logPhotoLike: (User *)likedByUser :(Photo *)photo;
 -(NSArray *)grabAllLikesForUser: (User *)likingUser;
--(NSArray *)grabAllCommentsForPhoto: (Photo *)photo;
+-(NSArray *)grabAllLikesForPhoto: (Photo *)photo;
 
 
 @end

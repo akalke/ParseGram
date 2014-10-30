@@ -49,7 +49,7 @@
 }
 
 
--(NSArray *)grabAllCommentsForPhoto: (Photo *)photo{
+-(NSArray *)grabAllLikeForPhoto: (Photo *)photo{
     NSPredicate *findPhotoPredicate = [NSPredicate predicateWithFormat:@"photoID = %@", photo.objectId];
     PFQuery *likesForPhotoQuery = [PFQuery queryWithClassName:[Likes parseClassName] predicate:findPhotoPredicate];
     [likesForPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
