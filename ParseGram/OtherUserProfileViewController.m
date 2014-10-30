@@ -10,7 +10,7 @@
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
-#import "User.h"
+#import "Likes.h"
 
 @interface OtherUserProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *photoCountLabel;
