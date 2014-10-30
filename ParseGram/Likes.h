@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import "User.h"
+#import "Photo.h"
 
+@class Photo;
 
 @interface Likes : PFObject <PFSubclassing>
 

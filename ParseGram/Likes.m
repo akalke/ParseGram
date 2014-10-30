@@ -15,6 +15,18 @@
 
 
 @implementation Likes
+
+@dynamic userID;
+@dynamic photoID;
+
++(NSString *)parseClassName{
+    return @"Likes";
+}
+
++(void)load{
+    [self registerSubclass];
+}
+
 -(void)logPhotoLike: (User *)likedByUser :(Photo *)photo{
     self.userID = likedByUser.objectId;
     self.photoID = photo.objectId;

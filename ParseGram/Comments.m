@@ -14,6 +14,18 @@
 @end
 
 @implementation Comments
+@dynamic photoID;
+@dynamic userID;
+@dynamic comment;
+@dynamic commentDate;
+
++(NSString *)parseClassName{
+    return @"Comments";
+}
+
++(void)load{
+    [self registerSubclass];
+}
 
 -(void)createComment: (NSString *)addedComment :(User *)commentingUser :(Photo *)photo{
     self.comment = addedComment;
