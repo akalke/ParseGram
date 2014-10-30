@@ -15,7 +15,7 @@
 
 @interface Comments : PFObject <PFSubclassing>
 @property NSString *photoID;
-@pgit roperty NSString *userID;
+@property NSString *userID;
 @property NSString *comment;
 @property NSString *commentDate;
 
