@@ -1,4 +1,4 @@
-we//
+//
 //  Comments.h
 //  ParseGram
 //
@@ -15,7 +15,7 @@ we//
 
 @interface Comments : PFObject <PFSubclassing>
 @property NSString *photoID;
-@property NSString *userID;
+@pgit roperty NSString *userID;
 @property NSString *comment;
 @property NSString *commentDate;
 
