@@ -17,7 +17,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *invalidLoginTextField;
 @property BOOL validLogin;
-@property User *person;
 
 @end
 
@@ -43,7 +42,7 @@
                     NSLog(@"%@",[user getUserID:user.username]);
                     NSLog(@"USERNAME FOUND");
                     self.validLogin = YES;
-                    [self setupUserDefaults:user.username];
+                    [self setupUserDefaults:user.username andWithUserID:user.objectId];
 
                     [self shouldPerformSegueWithIdentifier:@"PhotoStreamSegue" sender:self];
                     break;
@@ -59,10 +58,11 @@
     }];
 }
 
--(void)setupUserDefaults: (NSString *)username{
+-(void)setupUserDefaults: (NSString *)username andWithUserID: (NSString *)userID{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setValue:@"TRUE" forKey:@"AUTHENTICATED_SESSION"];
     [userDefaults setValue:username forKey:@"CURRENT_USER"];
+    [userDefaults setValue:userID forKey:@"CURRENT_USER_ID"];
     [userDefaults synchronize];
     NSString *user = [userDefaults stringForKey:@"CURRENT_USER"];
     NSLog(@"USERNAME: %@", user);
