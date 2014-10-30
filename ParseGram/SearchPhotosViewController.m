@@ -7,11 +7,11 @@
 //
 
 #import "SearchPhotosViewController.h"
+#import "OtherUserProfileViewController.h"
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
 #import "User.h"
-#import "OtherUserProfileViewController.h"
 
 @interface SearchPhotosViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

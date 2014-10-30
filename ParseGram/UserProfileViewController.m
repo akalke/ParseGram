@@ -7,10 +7,11 @@
 //
 
 #import "UserProfileViewController.h"
+#import "LoginViewController.h"
+#import "LikedPhotosViewController.h"
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
-#import "LoginViewController.h"
 
 @interface UserProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *photoCountLabel;
@@ -38,11 +39,12 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqual:@"LikedPhotosSegue"]) {
-        
+        LikedPhotosViewController *likedPhotosVC = segue.destinationViewController;
+        likedPhotosVC.user = self.username;
     } else if ([[segue identifier] isEqual:@"FollowersSegue"]) {
-        
+        // If need to pass properties to followersVC
     } else if ([[segue identifier] isEqual:@"FollowingSegue"]) {
-        
+        // If need to pass properties to followingVC
     }
 }
 

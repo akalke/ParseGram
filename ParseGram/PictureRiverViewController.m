@@ -7,14 +7,13 @@
 //
 
 #import "PictureRiverViewController.h"
+#import "OtherUserProfileViewController.h"
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
-#import "OtherUserProfileViewController.h"
 
 @interface PictureRiverViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property NSString *username;
 @property NSArray *photos;
 
 @end
@@ -24,8 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Picture River";
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    self.username = [userDefaults stringForKey:@"CURRENT_USER"];
     
     [self refreshView];
 }
@@ -54,6 +51,7 @@
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.userLabel.text = photo.uploadedBy;
     
+    // Uses image from PFFile for photo.image
     PFFile *image = [photo objectForKey:@"image"];
     [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (error) {
@@ -65,6 +63,8 @@
     }];
     
     cell.captionLabel.text = photo.caption;
+    // Like count should go in place of @24
+    // Same goes for all VC's showing likes
     cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -77,6 +77,7 @@
 
 #pragma mark - Helper Methods
 
+// Retrieves photo object from Parse
 - (void)refreshView {
     PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName]];
     [queryPhotos orderByDescending:@"createdAt"];
