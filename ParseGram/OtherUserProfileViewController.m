@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *photoCountLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSArray *userPhotos;
-@property User *userObj;
 
 @end
 
@@ -69,8 +68,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Like this Photo?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *addLike = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self.userObj getUserID:self.username];
-        NSLog(@"%@", self.userObj);
+        
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         return;
