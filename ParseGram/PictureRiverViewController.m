@@ -11,6 +11,7 @@
 #import "CustomTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Photo.h"
+#import "Likes.h"
 
 @interface PictureRiverViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -51,7 +52,6 @@
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.userLabel.text = photo.uploadedBy;
     
-    // Uses image from PFFile for photo.image
     PFFile *image = [photo objectForKey:@"image"];
     [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (error) {
@@ -63,9 +63,16 @@
     }];
     
     cell.captionLabel.text = photo.caption;
-    // Like count should go in place of @24
-    // Same goes for all VC's showing likes
-    cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"photoID = %@", photo.objectId];
+    PFQuery *queryLikes = [PFQuery queryWithClassName:[Likes parseClassName] predicate:predicate];
+    [queryLikes findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %lu", (unsigned long)objects.count];
+        }
+    }];
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MM-dd-yyyy"];
@@ -77,7 +84,6 @@
 
 #pragma mark - Helper Methods
 
-// Retrieves photo object from Parse
 - (void)refreshView {
     PFQuery *queryPhotos = [PFQuery queryWithClassName:[Photo parseClassName]];
     [queryPhotos orderByDescending:@"createdAt"];
