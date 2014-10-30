@@ -63,6 +63,11 @@
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Like this Photo?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+}
+
 #pragma mark - Helper Methods
 
 - (void)refreshView {
