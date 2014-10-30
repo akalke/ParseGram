@@ -52,7 +52,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     Photo *photo = [self.photos objectAtIndex:indexPath.row];
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.userLabel.text = [NSString stringWithFormat:@"%@", photo.uploadedBy];
+    cell.userLabel.text = photo.uploadedBy;
     
     PFFile *image = [photo objectForKey:@"image"];
     [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -64,13 +64,13 @@
         }
     }];
     
-    cell.captionLabel.text = [NSString stringWithFormat:@"%@", photo.caption];
+    cell.captionLabel.text = photo.caption;
     cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", @24];
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MM-dd-yyyy"];
     NSString *date = [format stringForObjectValue:photo.createdAt];
-    cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", date];
+    cell.timeStampLabel.text = date;
     
     return cell;
 }
