@@ -27,13 +27,22 @@
     [self registerSubclass];
 }
 
--(void)logPhotoLike: (User *)likedByUser :(Photo *)photo{
-    self.userID = likedByUser.objectId;
-    self.photoID = photo.objectId;
+-(void)logPhotoLike: (NSString *)likedByUserID :(NSString *)photoID{
+    self.userID = likedByUserID;
+    self.photoID = photoID;
+
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(error){
+            NSLog(@"%@", error);
+        }
+        else{
+            NSLog(@"Image liked");
+        }
+    }];
 }
 
--(NSArray *)grabAllLikesForUser: (User *)likingUser{
-    NSPredicate *findUserPredicate = [NSPredicate predicateWithFormat:@"userID = %@", likingUser.objectId];
+-(NSArray *)grabAllLikesForUser: (NSString *)likingUserID{
+    NSPredicate *findUserPredicate = [NSPredicate predicateWithFormat:@"userID = %@", likingUserID];
     PFQuery *likesForUserQuery = [PFQuery queryWithClassName:[Likes parseClassName] predicate:findUserPredicate];
     [likesForUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error){
@@ -49,8 +58,8 @@
 }
 
 
--(NSArray *)grabAllLikeForPhoto: (Photo *)photo{
-    NSPredicate *findPhotoPredicate = [NSPredicate predicateWithFormat:@"photoID = %@", photo.objectId];
+-(NSArray *)grabAllLikesForPhoto: (NSString *)photoID{
+    NSPredicate *findPhotoPredicate = [NSPredicate predicateWithFormat:@"photoID = %@", photoID];
     PFQuery *likesForPhotoQuery = [PFQuery queryWithClassName:[Likes parseClassName] predicate:findPhotoPredicate];
     [likesForPhotoQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error){
