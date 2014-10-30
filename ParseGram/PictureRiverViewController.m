@@ -37,29 +37,23 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     Photo *selectedPhoto = [self.photos objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-    if ([[segue identifier] isEqual:@"UserProfileSegue"]) {
-        
-    } else if ([[segue identifier] isEqual:@"OtherUserProfileSegue"]) {
+    if ([[segue identifier] isEqual:@"OtherUserProfileSegue"]) {
         OtherUserProfileViewController *otherUserProfileVC = segue.destinationViewController;
         otherUserProfileVC.user = selectedPhoto.uploadedBy;
-    } else if ([[segue identifier] isEqual:@"SearchSegue"]) {
-        
-    } else if ([[segue identifier] isEqual:@"CameraSegue"]) {
-        
     }
 }
 
-//- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-//    [super shouldPerformSegueWithIdentifier:@"OtherUserProfileSegue" sender:sender];
-//    Photo *selectedPhoto = [self.photos objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-//    
-//    if ([self.username isEqual:selectedPhoto.uploadedBy]) {
-//        [self performSegueWithIdentifier:@"UserProfileSegue" sender:self];
-//        return NO;
-//    } else {
-//        return YES;
-//    }
-//}
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    [super shouldPerformSegueWithIdentifier:@"OtherUserProfileSegue" sender:sender];
+    Photo *selectedPhoto = [self.photos objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    
+    if ([self.username isEqual:selectedPhoto.uploadedBy]) {
+        [self performSegueWithIdentifier:@"UserProfileSegue" sender:self];
+        return NO;
+    } else {
+        return YES;
+    }
+}
 
 #pragma mark - TableView Methods
 
@@ -91,15 +85,6 @@
     cell.timeStampLabel.text = [NSString stringWithFormat:@"%@", date];
     
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Photo *selectedPhoto = [self.photos objectAtIndex:indexPath.row];
-    if ([self.username isEqual:selectedPhoto.uploadedBy]) {
-        [self performSegueWithIdentifier:@"UserProfileSegue" sender:self];
-    } else {
-        [self performSegueWithIdentifier:@"OtherUserProfileSegue" sender:self];
-    }
 }
 
 #pragma mark - Helper Methods
